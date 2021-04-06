@@ -1,2 +1,3 @@
 ci:
-  enable_tests: false
+  linux:
+    enable_tests: false

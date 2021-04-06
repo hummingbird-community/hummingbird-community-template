@@ -7,12 +7,29 @@ on:
   workflow_dispatch:
 
 jobs:
+{{#mac}}
+  macOS:
+    runs-on: macOS-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+{{#enable_tests}}
+    - name: SPM tests
+      run: swift test --enable-code-coverage --sanitize=thread
+{{/enable_tests}}
+{{^enable_tests}}
+    - name: Build
+      run: |
+        swift build
+{{/enable_tests}}
+{{/mac}}
+{{#linux}}
   linux:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         image: ['nightly-5.4-bionic', 'nightly-5.4-focal', 'nightly-5.4-centos8', 'nightly-5.4-amazonlinux2']
-    {{{ci.services}}}
+    {{{services}}}
     container:
       {{=<< >>=}}
       image: swiftlang/swift:${{ matrix.image }}
@@ -36,4 +53,5 @@ jobs:
       run: |
         swift build
 {{/enable_tests}}
+{{/linux}}
 {{/ci}}

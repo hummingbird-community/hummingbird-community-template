@@ -1,2 +1,4 @@
 ci:
   enable_tests: true
+  linux: true
+  mac: true
