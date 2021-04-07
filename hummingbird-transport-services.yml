@@ -1,3 +1,0 @@
-ci:
-  mac:
-    enable_tests: true
