@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v2
 {{#enable_tests}}
     - name: SPM tests
-      run: swift test --enable-code-coverage --sanitize=thread
+      run: swift test --sanitize=thread
 {{/enable_tests}}
 {{^enable_tests}}
     - name: Build
