@@ -53,7 +53,6 @@ if [[ -z "$PROJECT" ]]; then
     update_project hummingbird-lambda
     update_project hummingbird-mustache
     update_project hummingbird-redis
-    update_project hummingbird-requirements
     update_project hummingbird-websocket
 
 else
