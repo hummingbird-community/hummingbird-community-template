@@ -1,3 +1,4 @@
 ci:
+  nightly: true
   linux:
     enable_tests: false

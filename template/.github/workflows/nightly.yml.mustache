@@ -2,8 +2,10 @@
 name: Swift nightly build
 
 on:
+{{#nightly}}
   schedule:
-    - cron: '0 1 * * *'
+    - cron: '0 1 * * {{#every}}*{{/every}}{{^every}}1{{/every}}'
+{{/nightly}}
   workflow_dispatch:
 
 jobs:

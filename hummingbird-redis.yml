@@ -1,4 +1,5 @@
 ci:
+  nightly: true
   linux:
     enable_tests: true
     services: |
