@@ -4,12 +4,8 @@ name: Swift nightly build
 on:
 {{#nightly}}
   schedule:
-<<<<<<< Updated upstream
     - cron: '0 1 * * {{#every}}*{{/every}}{{^every}}1{{/every}}'
 {{/nightly}}
-=======
-    - cron: '0 1 * * 1'
->>>>>>> Stashed changes
   workflow_dispatch:
 
 jobs:
