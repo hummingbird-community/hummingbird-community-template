@@ -49,11 +49,9 @@ jobs:
     strategy:
       matrix:
         image:
-          - 'swift:5.4-bionic'
-          - 'swift:5.5-bionic'
-          - 'swift:5.5-focal'
-          - 'swift:5.5-amazonlinux2'
-          - 'swift:5.5-centos8'
+          - 'swift:5.4'
+          - 'swift:5.5'
+          - 'swift:5.6'
     {{{services}}}
     container:
       {{=<< >>=}}
@@ -71,7 +69,7 @@ jobs:
 {{#enable_tests}}
     - name: Test
       run: |
-        swift test --enable-test-discovery --enable-code-coverage
+        swift test --enable-code-coverage
     - name: Convert coverage files
       run: |
         llvm-cov export -format="lcov" \
