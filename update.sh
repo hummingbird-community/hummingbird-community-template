@@ -30,7 +30,8 @@ function update_project {
             elif [[ "$EXTENSION" == "mustache" ]]; then
                 run_mustache "$f" ../../$HBPROJECT/"${f%.*}" "$HBPROJECT"
             else
-                cat "$f" | envsubst > ../../$HBPROJECT/"$f"
+                cp "$f" ../../$HBPROJECT/"$f"
+                #cat "$f" | envsubst > ../../$HBPROJECT/"$f"
             fi
         elif [[ -d "$f" ]]; then
             if [[ ! -d ../../$HBPROJECT/"$f" ]]; then
