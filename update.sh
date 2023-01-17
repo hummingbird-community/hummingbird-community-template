@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Install mustache with `gem install mustache`
+
 set -eu
 
 function run_mustache {
