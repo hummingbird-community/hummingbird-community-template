@@ -5,24 +5,24 @@ on:
   push:
     branches:
     - main
+    - 2.x.x
     paths:
     - '**.swift'
     - '**.yml'
   pull_request:
     branches:
     - main
-    paths:
-    - '**.swift'
-    - '**.yml'
+    - 2.x.x
   workflow_dispatch:
 
 jobs:
 {{#mac}}
   macOS:
     runs-on: macOS-latest
+    timeout-minutes: 15
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 {{#enable_tests}}
     - name: SPM tests
       run: swift test --enable-code-coverage
@@ -47,12 +47,12 @@ jobs:
 {{#linux}}
   linux:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     strategy:
       matrix:
         image:
-          - 'swift:5.6'
-          - 'swift:5.7'
-          - 'swift:5.8'
+          - 'swift:5.9'
+          - 'swiftlang/swift:nightly-5.10-jammy'
     {{{services}}}
     container:
       {{=<< >>=}}
@@ -66,7 +66,7 @@ jobs:
       {{/env}}
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 {{#enable_tests}}
     - name: Test
       run: |

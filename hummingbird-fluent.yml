@@ -1,4 +1,5 @@
 ci:
-  nightly: true
+  nightly: false
   linux:
     enable_tests: false
+  mac: false

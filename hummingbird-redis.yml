@@ -1,5 +1,5 @@
 ci:
-  nightly: true
+  nightly: false
   linux:
     enable_tests: true
     services: |
@@ -12,3 +12,4 @@ ci:
     env:
       entries: |
         REDIS_HOSTNAME: "redis"
+  mac: false
