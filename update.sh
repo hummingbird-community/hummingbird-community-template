@@ -51,7 +51,6 @@ if [[ -z "$PROJECT" ]]; then
     update_project hummingbird
     update_project hummingbird-auth
     update_project hummingbird-compression
-    update_project hummingbird-core
     update_project hummingbird-fluent
     update_project hummingbird-lambda
     update_project hummingbird-mustache
