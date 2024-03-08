@@ -1,0 +1,6 @@
+ci:
+  nightly: false
+  enable_tests: true
+  linux:
+    images: ['swift:5.10', 'swiftlang/swift:nightly-jammy']
+  mac: false
