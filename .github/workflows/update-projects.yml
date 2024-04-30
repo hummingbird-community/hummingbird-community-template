@@ -13,6 +13,11 @@ jobs:
         matrix:
           repo:
             - hummingbird
+            - hummingbird-auth
+            - hummingbird-fluent
+            - hummingbird-postgres
+            - hummingbird-redis
+            - hummingbird-websocket
     steps:
     - name: App Token
       uses: tibdex/github-app-token@v1
@@ -23,7 +28,6 @@ jobs:
     - name: Checkout Project Template
       uses: actions/checkout@v4
       with:
-        ref: main
         fetch-depth: 1
         path: project-template
     - name: Checkout Target Repository
@@ -32,7 +36,7 @@ jobs:
         ref: main
         fetch-depth: 1
         path: ${{ matrix.repo }}
-        repository: https://github.com/hummingbird-project/${{ matrix.repo }}
+        repository: hummingbird-project/${{ matrix.repo }}
     - name: Install Dependencies
       run: |
         gem install mustache
@@ -44,7 +48,8 @@ jobs:
       uses: peter-evans/create-pull-request@v6
       with:
         token: ${{ steps.generate-token.outputs.token }}
-        commit-message: 'Update from hummingbird-project-template'
+        path: ${{ matrix.repo }}
+        commit-message: 'Update from hummingbird-project-template ${{ github.sha }}'
         committer: GitHub <noreply@github.com>
         author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
         branch: project-template-update
