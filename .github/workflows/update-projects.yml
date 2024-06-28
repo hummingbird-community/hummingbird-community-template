@@ -14,8 +14,10 @@ jobs:
           repo:
             - hummingbird
             - hummingbird-auth
+            - hummingbird-compression
             - hummingbird-fluent
-            - hummingbird-postgres
+            - hummingbird-jobs
+            - swift-mustache
             - hummingbird-redis
             - hummingbird-websocket
     steps:
