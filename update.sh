@@ -52,8 +52,9 @@ if [[ -z "$PROJECT" ]]; then
     update_project hummingbird-auth
     update_project hummingbird-compression
     update_project hummingbird-fluent
+    update_project hummingbird-jobs
     update_project hummingbird-lambda
-    update_project hummingbird-mustache
+    update_project swift-mustache
     update_project hummingbird-postgres
     update_project hummingbird-redis
     update_project hummingbird-websocket
