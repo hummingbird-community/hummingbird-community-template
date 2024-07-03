@@ -1,4 +1,4 @@
-name: Update Hummingbird Packages
+name: Update Hummingbird Community Packages
 
 on:
   workflow_dispatch:
@@ -28,7 +28,7 @@ jobs:
         ref: main
         fetch-depth: 1
         path: ${{ matrix.repo }}
-        repository: hummingbird-project/${{ matrix.repo }}
+        repository: hummingbird-community/${{ matrix.repo }}
     - name: Install Dependencies
       run: |
         gem install mustache
@@ -41,10 +41,10 @@ jobs:
       with:
         token: ${{ steps.generate-token.outputs.token }}
         path: ${{ matrix.repo }}
-        commit-message: 'Update from hummingbird-project-template ${{ github.sha }}'
+        commit-message: 'Update from hummingbird-community-template ${{ github.sha }}'
         committer: GitHub <noreply@github.com>
         author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
         branch: project-template-update
         title: 'Update from Hummingbird Project Template'
-        body: 'Automated update of files from https://github.com/hummingbird-project/hummingbird-project-template'
+        body: 'Automated update of files from https://github.com/hummingbird-community/hummingbird-community-template'
         base: main
