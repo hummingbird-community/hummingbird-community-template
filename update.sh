@@ -8,13 +8,9 @@ function run_mustache {
     SRC=$1
     DEST=$2
     PROJECT=$3
+    TEMPLATE_CONTEXT=$4
 
-    if [[ -f "../$PROJECT.yml" ]]; then
-        CONTEXT="../$PROJECT.yml"
-    else
-        CONTEXT="../default.yml"
-    fi
-    echo "project: $PROJECT" | cat - $CONTEXT | mustache - "$SRC" > "$DEST"
+    echo "project: $PROJECT" | cat - $TEMPLATE_CONTEXT | mustache - "$SRC" > "$DEST"
 }
 
 function update_project {
@@ -22,6 +18,13 @@ function update_project {
     export PROJECT_NAME=$(basename $1)
 
     echo "Updating $PROJECT_NAME"
+
+    export OPTIONAL_TEMPLATE_CONTEXT="$PROJECT_PATH/.hummingbird-community-template.yml"
+    if [[ -f "$OPTIONAL_TEMPLATE_CONTEXT" ]]; then
+        TEMPLATE_CONTEXT="$OPTIONAL_TEMPLATE_CONTEXT"
+    else
+        TEMPLATE_CONTEXT="../default.yml"
+    fi
 
     pushd template > /dev/null
     for f in $(find . -print)
@@ -31,7 +34,7 @@ function update_project {
             if [[ "$EXTENSION" == "sh" ]]; then
                 cp "$f" "$PROJECT_PATH"/"$f"
             elif [[ "$EXTENSION" == "mustache" ]]; then
-                run_mustache "$f" "$PROJECT_PATH"/"${f%.*}" "$PROJECT_NAME"
+                run_mustache "$f" "$PROJECT_PATH"/"${f%.*}" "$PROJECT_NAME" "$TEMPLATE_CONTEXT"
             else
                 cp "$f" "$PROJECT_PATH"/"$f"
                 #cat "$f" | envsubst > ../../$HBPROJECT/"$f"
