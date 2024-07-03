@@ -1,4 +1,4 @@
-{{#ci.validation}}
+{{#swiftformat}}
 #!/bin/bash
 ##===----------------------------------------------------------------------===##
 ##
@@ -14,7 +14,7 @@
 ##
 ##===----------------------------------------------------------------------===##
 
-SWIFT_FORMAT_VERSION=0.51.15
+SWIFT_FORMAT_VERSION={{version}}
 
 set -eu
 here="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -117,4 +117,4 @@ EOF
 done
 
 rm "$tmp"
-{{/ci.validation}}
+{{/swiftformat}}

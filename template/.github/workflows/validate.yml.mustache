@@ -1,10 +1,7 @@
-{{#ci.validation}}
+{{#swiftformat}}
 name: Validity Check
 
 on:
-{{#validation}}
-  pull_request:
-{{/validation}}
   workflow_dispatch:
   
 jobs:
@@ -19,7 +16,7 @@ jobs:
     - name: Install Dependencies
       run: |
         brew install mint
-        mint install NickLockwood/SwiftFormat@0.51.15 --no-link
+        mint install NickLockwood/SwiftFormat@{{version}} --no-link
     - name: run script
       run: ./scripts/validate.sh
-{{/ci.validation}}
+{{/swiftformat}}
