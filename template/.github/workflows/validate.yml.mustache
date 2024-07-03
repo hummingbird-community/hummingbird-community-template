@@ -1,8 +1,12 @@
+{{#ci.validation}}
 name: Validity Check
 
 on:
+{{#validation}}
   pull_request:
-
+{{/validation}}
+  workflow_dispatch:
+  
 jobs:
   validate:
     runs-on: macOS-latest
@@ -18,3 +22,4 @@ jobs:
         mint install NickLockwood/SwiftFormat@0.51.15 --no-link
     - name: run script
       run: ./scripts/validate.sh
+{{/ci.validation}}

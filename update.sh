@@ -11,6 +11,10 @@ function run_mustache {
     TEMPLATE_CONTEXT=$4
 
     echo "project: $PROJECT" | cat - $TEMPLATE_CONTEXT | mustache - "$SRC" > "$DEST"
+    # delete file if it is empty or only contains spaces
+    if ! grep -q '[^[:space:]]' "$DEST" ; then
+        rm $DEST
+    fi
 }
 
 function update_project {

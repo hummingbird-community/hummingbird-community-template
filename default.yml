@@ -1,5 +1,6 @@
 ci:
   nightly: false
+  validation: true
   enable_tests: true
   linux:
     images: ['swift:5.9', 'swift:5.10']
