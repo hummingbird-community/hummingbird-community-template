@@ -1,4 +1,4 @@
-{{#swiftformat}}
+{{#ci.validate}}
 #!/bin/bash
 ##===----------------------------------------------------------------------===##
 ##
@@ -14,17 +14,13 @@
 ##
 ##===----------------------------------------------------------------------===##
 
+{{#swiftformat}}
 SWIFT_FORMAT_VERSION={{version}}
 
 set -eu
 here="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 which swiftformat > /dev/null 2>&1 || (echo "swiftformat not installed. You can install it using 'brew install swiftformat'" ; exit -1)
-
-function replace_acceptable_years() {
-    # this needs to replace all acceptable forms with 'YEARS'
-    sed -e 's/20[12][0-9]-20[12][0-9]/YEARS/' -e 's/20[12][0-9]/YEARS/' -e '/^#!/ d'
-}
 
 printf "=> Checking format... "
 FIRST_OUT="$(git status --porcelain)"
@@ -43,9 +39,15 @@ if [[ "$FIRST_OUT" != "$SECOND_OUT" ]]; then
 else
   printf "\033[0;32mokay.\033[0m\n"
 fi
-exit
+{{/swiftformat}}
+{{#headers}}
+function replace_acceptable_years() {
+    # this needs to replace all acceptable forms with 'YEARS'
+    sed -e 's/20[12][0-9]-20[12][0-9]/YEARS/' -e 's/20[12][0-9]/YEARS/' -e '/^#!/ d'
+}
+
 printf "=> Checking license headers... "
-tmp=$(mktemp /tmp/.soto-core-sanity_XXXXXX)
+tmp=$(mktemp /tmp/.hb_validity_XXXXXX)
 
 for language in swift-or-c; do
   declare -a matching_files
@@ -117,4 +119,5 @@ EOF
 done
 
 rm "$tmp"
-{{/swiftformat}}
+{{/headers}}
+{{/ci.validate}}

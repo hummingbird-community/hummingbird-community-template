@@ -49,6 +49,13 @@ function update_project {
             fi
         fi
     done
+
+    # ensure scripts are executable
+    SCRIPT_FILES="$PROJECT_PATH"/scripts/*
+    for f in $SCRIPT_FILES
+    do
+        chmod a+x "$f"
+    done
     popd > /dev/null
 }
 

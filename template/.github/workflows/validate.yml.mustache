@@ -1,4 +1,4 @@
-{{#swiftformat}}
+{{#ci.validate}}
 name: Validity Check
 
 on:
@@ -13,10 +13,12 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 1
+{{#swiftformat}}
     - name: Install Dependencies
       run: |
         brew install mint
         mint install NickLockwood/SwiftFormat@{{version}} --no-link
+{{/swiftformat}}
     - name: run script
       run: ./scripts/validate.sh
-{{/swiftformat}}
+{{/ci.validate}}

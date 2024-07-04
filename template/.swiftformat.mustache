@@ -1,9 +1,9 @@
-{{#swiftformat}}
+{{#ci.validate.swiftformat}}
 # Minimum swiftformat version
---minversion 0.51.0
+--minversion {{version}}
 
 # Swift version
---swiftversion 5.9
+--swiftversion {{swift-version}}
 
 # file options
 --exclude .build
@@ -22,4 +22,4 @@
 --wraparguments before-first
 --wrapparameters before-first
 --wrapcollections before-first
-{{/swiftformat}}
+{{/ci.validate.swiftformat}}
