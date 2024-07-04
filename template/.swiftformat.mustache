@@ -3,13 +3,13 @@
 --minversion {{version}}
 
 # Swift version
---swiftversion {{swift-version}}
+--swiftversion 5.9
 
 # file options
 --exclude .build
 
 # rules
---disable redundantReturn, extensionAccessControl, typeSugar, conditionalAssignment
+--disable redundantReturn, extensionAccessControl, typeSugar, conditionalAssignment, preferForLoop{{#disable}}, {{.}}{{/disable}}
 
 # format options
 --ifdef no-indent
