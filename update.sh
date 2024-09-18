@@ -11,24 +11,34 @@ function run_mustache {
     PROJECT=$3
     TEMPLATE_CONTEXT=$4
 
-    echo "project: $PROJECT" | cat - $TEMPLATE_CONTEXT | mustache - "$SRC" > "$DEST"
+    TEMP_FILE=$(mktemp)
+    if [[ -n "$TEMPLATE_CONTEXT" ]]; then
+        echo "project: $PROJECT" | cat - "$TEMPLATE_CONTEXT" | mustache ../default.yml,- "$SRC" > "$TEMP_FILE"
+    else
+        echo "project: $PROJECT" | cat - ../default.yml | mustache - "$SRC" > "$TEMP_FILE"
+    fi
     # delete file if it is empty or only contains spaces
-    if ! grep -q '[^[:space:]]' "$DEST" ; then
-        rm $DEST
+    if ! grep -q '[^[:space:]]' "$TEMP_FILE" ; then
+        rm "$TEMP_FILE"
+    else
+        mv "$TEMP_FILE" "$DEST"
+        if [[ "$DEST" == *.sh ]]; then
+            chmod a+x "$DEST"
+        fi
     fi
 }
 
 function update_project {
-    export PROJECT_PATH=$1
-    export PROJECT_NAME=$(basename $1)
+    PROJECT_PATH=$1
+    PROJECT_NAME=$(basename "$1")
 
     echo "Updating $PROJECT_NAME"
 
-    export OPTIONAL_TEMPLATE_CONTEXT="$PROJECT_PATH/.hummingbird-community-template.yml"
+    OPTIONAL_TEMPLATE_CONTEXT="$PROJECT_PATH/.hummingbird-community-template.yml"
     if [[ -f "$OPTIONAL_TEMPLATE_CONTEXT" ]]; then
         TEMPLATE_CONTEXT="$OPTIONAL_TEMPLATE_CONTEXT"
     else
-        TEMPLATE_CONTEXT="../default.yml"
+        TEMPLATE_CONTEXT=""
     fi
 
     pushd template > /dev/null
@@ -42,20 +52,12 @@ function update_project {
                 run_mustache "$f" "$PROJECT_PATH"/"${f%.*}" "$PROJECT_NAME" "$TEMPLATE_CONTEXT"
             else
                 cp "$f" "$PROJECT_PATH"/"$f"
-                #cat "$f" | envsubst > ../../$HBPROJECT/"$f"
             fi
         elif [[ -d "$f" ]]; then
             if [[ ! -d "$PROJECT_PATH"/"$f" ]]; then
                 mkdir "$PROJECT_PATH"/"$f"
             fi
         fi
-    done
-
-    # ensure scripts are executable
-    SCRIPT_FILES="$PROJECT_PATH"/scripts/*
-    for f in $SCRIPT_FILES
-    do
-        chmod a+x "$f"
     done
     popd > /dev/null
 }

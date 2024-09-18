@@ -1,9 +1,19 @@
+# Update CI files for project. Set to false to not update CI
 ci:
+  # Replace `false` with dictionary to add environment variables
+  env: false
+  # Add nightly build CI with crontab. If this is set to false then the nightly build
+  # workflow is still generated but doesn't include the schedule
   nightly: false
+  # Run validation
   validate:
     swiftformat:
       version: 0.53.10
+  # Run tests in CI
   enable_tests: true
+  # Enable Linux CI
   linux:
-    images: ['swift:5.9', 'swift:5.10']
+    # Docker container to use in linux CI
+    images: ['swift:5.9', 'swift:5.10', 'swift:6.0']
+  # Enable Mac CI
   mac: false
