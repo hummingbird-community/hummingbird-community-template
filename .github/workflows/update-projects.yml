@@ -54,5 +54,7 @@ jobs:
         author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
         branch: project-template-update
         title: 'Update from Hummingbird Project Template'
-        body: '${{ env.GIT_COMMIT_MESSAGE }}\nAutomated update of files from https://github.com/hummingbird-community/hummingbird-community-template'
+        body: |
+          ${{ env.GIT_COMMIT_MESSAGE }}
+          Automated update of files from https://github.com/hummingbird-community/hummingbird-community-template
         base: main
