@@ -12,8 +12,7 @@ jobs:
     strategy:
         matrix:
           repo:
-            - hummingbird-elementary
-            - hummingbird-wallet
+            - dummy
     steps:
     - name: App Token
       uses: tibdex/github-app-token@v2
@@ -42,6 +41,9 @@ jobs:
       run: |
         cd project-template
         ./update.sh ../${{ matrix.repo }}
+    - name: Commit message
+      run: |
+        git log -1 >> $GIT_COMMIT_MESSAGE
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v6
       with:
@@ -52,5 +54,5 @@ jobs:
         author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
         branch: project-template-update
         title: 'Update from Hummingbird Project Template'
-        body: 'Automated update of files from https://github.com/hummingbird-community/hummingbird-community-template'
+        body: '$GIT_COMMIT_MESSAGE\nAutomated update of files from https://github.com/hummingbird-community/hummingbird-community-template'
         base: main
