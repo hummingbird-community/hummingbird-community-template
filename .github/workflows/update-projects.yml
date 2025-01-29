@@ -44,7 +44,7 @@ jobs:
     - name: Set Commit message
       run: |
         cd ${{ matrix.repo }}
-        echo "GIT_COMMIT_MESSAGE=$(git log -1)" >> $GITHUB_ENV
+        echo GIT_COMMIT_MESSAGE="$(git log -1)" >> $GITHUB_ENV
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v6
       with:
