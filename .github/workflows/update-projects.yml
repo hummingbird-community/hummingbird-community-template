@@ -35,7 +35,7 @@ jobs:
     - name: Set Commit message
       run: |
         cd ${{ matrix.repo }}
-        echo GIT_COMMIT_MESSAGE="$(git log -1)" >> $GITHUB_ENV
+        echo GIT_COMMIT_MESSAGE=\"$(git log -1)\" >> $GITHUB_ENV
     - name: Install Dependencies
       run: |
         brew install mint
