@@ -58,3 +58,6 @@ jobs:
           ${{ env.GIT_COMMIT_MESSAGE }}
           Automated update of files from https://github.com/hummingbird-community/hummingbird-community-template
         base: main
+    - name: Echo Commit message
+      run: |
+        echo ${{ env.GIT_COMMIT_MESSAGE }}
