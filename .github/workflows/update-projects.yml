@@ -12,7 +12,8 @@ jobs:
     strategy:
         matrix:
           repo:
-            - dummy
+            - hummingbird-elementary
+            - hummingbird-wallet
     steps:
     - name: App Token
       uses: tibdex/github-app-token@v2
