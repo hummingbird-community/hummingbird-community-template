@@ -4,10 +4,16 @@ name: Validity Check
 on:
   pull_request:
   workflow_dispatch:
+
+concurrency:
+{{=<< >>=}}
+  group: ${{ github.workflow }}-${{ github.ref }}-validate
+<<={{ }}=>>
+  cancel-in-progress: true
   
 jobs:
   validate:
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
     - name: Checkout
