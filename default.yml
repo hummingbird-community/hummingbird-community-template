@@ -14,6 +14,6 @@ ci:
   # Enable Linux CI
   linux:
     # Docker container to use in linux CI
-    images: ['swift:5.9', 'swift:5.10', 'swift:6.0', 'swiftlang/swift:nightly-6.1-jammy']
+    images: ['swift:5.10', 'swift:6.0', 'swift:6.1']
   # Enable Mac CI
   mac: false
