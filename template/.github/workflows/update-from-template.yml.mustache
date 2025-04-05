@@ -24,7 +24,7 @@ jobs:
         with:
           ref: main
           fetch-depth: 1
-          path: workspace
+          path: {{project}}
       - name: Checkout Project Template
         uses: actions/checkout@v4
         with:
@@ -40,12 +40,12 @@ jobs:
       - name: Update
         run: |
           cd project-template
-          ./update.sh ../workspace
+          ./update.sh ../{{project}}
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ steps.generate-token.outputs.token }}
-          path: workspace
+          path: {{project}}
           commit-message: 'Update from hummingbird-community-template.'
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
