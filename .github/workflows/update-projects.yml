@@ -12,6 +12,8 @@ jobs:
     strategy:
         matrix:
           repo:
+            - hummingbird-elementary
+            - hummingbird-wallet
             - swift-jobs-sqs
     steps:
     - name: App Token
