@@ -8,6 +8,19 @@ on:
 {{/nightly}}
   workflow_dispatch:
 
+concurrency:
+{{=<< >>=}}
+  group: ${{ github.workflow }}-${{ github.ref }}-nightly
+<<={{ }}=>>
+  cancel-in-progress: true
+
+{{#count(env)}}
+env:
+{{#enumerated(env)}}
+  {{{key}}}: "{{{value}}}"
+{{/enumerated(env)}}
+
+{{/count(env)}}
 jobs:
 {{#mac}}
   macOS:
@@ -33,17 +46,14 @@ jobs:
     strategy:
       matrix:
         image: ['nightly-focal', 'nightly-jammy', 'nightly-amazonlinux2']
-    {{{services}}}
+{{#services}}
+    services:
+      {{{.}}}
+{{/services}}
     container:
       {{=<< >>=}}
       image: swiftlang/swift:${{ matrix.image }}
       <<={{ }}=>>
-      {{#env}}
-      env:
-      {{#entries}}
-        {{{.}}}
-      {{/entries}}
-      {{/env}}
     steps:
     - name: Checkout
       uses: actions/checkout@v4

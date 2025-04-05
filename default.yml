@@ -5,15 +5,15 @@ ci:
   # Add nightly build CI with crontab. If this is set to false then the nightly build
   # workflow is still generated but doesn't include the schedule
   nightly: false
-  # Run validation
-  validate:
-    swiftformat:
-      version: 0.53.10
+  # Run validation.
+  # Add `swift-format` for swift-format validation
+  # Add `swiftformat` for Nick Lockwood's swiftformat validation. Include `version` child for version of swiftformat
+  validate: false
   # Run tests in CI
   enable_tests: true
   # Enable Linux CI
   linux:
     # Docker container to use in linux CI
-    images: ['swift:5.9', 'swift:5.10', 'swift:6.0', 'swiftlang/swift:nightly-6.1-jammy']
+    images: ['swift:5.10', 'swift:6.0', 'swift:6.1']
   # Enable Mac CI
   mac: false
