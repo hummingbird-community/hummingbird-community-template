@@ -35,19 +35,11 @@ jobs:
 {{#enable_tests}}
     - name: SPM tests
       run: swift test --enable-code-coverage
-    - name: Convert coverage files
-      run: |
-        xcrun llvm-cov export -format "lcov" \
-          .build/debug/{{project}}PackageTests.xctest/Contents/MacOs/{{project}}PackageTests \
-          -ignore-filename-regex="\/Tests\/" \
-          -ignore-filename-regex="\/Benchmarks\/" \
-          -instr-profile=.build/debug/codecov/default.profdata > info.lcov
-    - name: Upload to codecov.io
-      uses: codecov/codecov-action@v4
+    - name: Upload coverage data
+      uses: vapor/swift-codecov-action@v0.3.7
       with:
-        files: info.lcov
 {{=<< >>=}}
-        token: ${{ secrets.CODECOV_TOKEN }}
+        codecov_token: ${{ secrets.CODECOV_TOKEN }}
 <<={{ }}=>>
 {{/enable_tests}}
 {{^enable_tests}}
@@ -72,25 +64,19 @@ jobs:
       image: ${{ matrix.image }}
       <<={{ }}=>>
     steps:
+    - name: Install curl
+      run: apt-get update -yq && apt-get install -y curl
     - name: Checkout
       uses: actions/checkout@v7
 {{#enable_tests}}
     - name: Test
       run: |
         swift test --enable-code-coverage
-    - name: Convert coverage files
-      run: |
-        llvm-cov export -format="lcov" \
-          .build/debug/{{project}}PackageTests.xctest \
-          -ignore-filename-regex="\/Tests\/" \
-          -ignore-filename-regex="\/Benchmarks\/" \
-          -instr-profile .build/debug/codecov/default.profdata > info.lcov
-    - name: Upload to codecov.io
-      uses: codecov/codecov-action@v4
+    - name: Upload coverage data
+      uses: vapor/swift-codecov-action@v0.3.7
       with:
-        files: info.lcov
 {{=<< >>=}}
-        token: ${{ secrets.CODECOV_TOKEN }}
+        codecov_token: ${{ secrets.CODECOV_TOKEN }}
 <<={{ }}=>>
 {{/enable_tests}}
 {{^enable_tests}}
